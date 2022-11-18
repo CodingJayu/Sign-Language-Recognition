@@ -1,2 +1,3 @@
-# BE_PROJECT
+# Sign Language Recognition
+
 Sign Language Recognition
