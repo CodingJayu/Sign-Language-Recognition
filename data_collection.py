@@ -124,8 +124,13 @@ while True:
     cv2.putText(img, "X : "+str(count['x']), (10, 446), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
     cv2.putText(img, "Y : "+str(count['y']), (10, 459), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
     cv2.putText(img, "Z : "+str(count['z']), (10, 472), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-
-
+    
+    total=0
+    for i in count:
+        total=total+count['i']
+    
+    cv2.putText(img, "Total : "+str(total), (520, 17), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    
 
     if hands:
         hand = hands[0]
