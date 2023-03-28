@@ -86,8 +86,7 @@ while True:
              }
     
     # Printing the count in each set to the screen
-    # cv2.putText(frame, "MODE : "+mode, (10, 50), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(frame, "IMAGE COUNT", (10, ), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+
     cv2.putText(img, "ZERO : "+str(count['zero']), (10, 17), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
     cv2.putText(img, "ONE : "+str(count['one']), (10, 30), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
     cv2.putText(img, "TWO : "+str(count['two']), (10, 43), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
