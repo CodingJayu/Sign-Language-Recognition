@@ -279,4 +279,4 @@ while True:
     if key == ord("9"):
         cv2.imwrite(f'{folder}/ज्ञ/Image_{time.time()}.jpg',imgWhite)
 
-print("जहह ")
+
