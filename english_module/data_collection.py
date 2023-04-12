@@ -6,7 +6,7 @@ import time
 import os
 import string
 
-base_folder = "Data"
+base_folder = "english_module/Data"
 
 #Create Data Set Folder
 if not os.path.exists(base_folder):
@@ -36,9 +36,9 @@ imgSize = 300
 
 choice=int(input("Select the mode for training\n1.Training\n2.Test\n"))
 if(choice==1):
-    folder="Data/train" 
+    folder=base_folder+"/train" 
 elif(choice==2):
-    folder="Data/test" 
+    folder=base_folder+"/test" 
 
  
 while True:
@@ -126,7 +126,7 @@ while True:
     
     total=0
     for i in count:
-        total=total+count['i']
+        total=total+count[i]
     
     cv2.putText(img, "Total : "+str(total), (520, 17), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
     
