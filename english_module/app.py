@@ -5,7 +5,7 @@ import cv2
 import math
 from cvzone.HandTrackingModule import HandDetector
 
-model = keras.models.load_model('Trained_model.h5',compile=False)
+model = keras.models.load_model('Models/Trained_model.h5',compile=False)
 img_height=300
 img_width=300
 class_names=['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
