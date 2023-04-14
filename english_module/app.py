@@ -48,27 +48,33 @@ while True:
         imgCropShape = imgCrop.shape
  
         aspectRatio = h / w
- 
-        if aspectRatio > 1:
-            k = imgSize / h
-            wCal = math.ceil(k * w)
-            imgResize = cv2.resize(imgCrop, (wCal, imgSize))
-            imgResizeShape = imgResize.shape
-            wGap = math.ceil((imgSize - wCal) / 2)
-            imgWhite[:, wGap:wCal + wGap] = imgResize
- 
-        else:
-            k = imgSize / w
-            hCal = math.ceil(k * h)
-            imgResize = cv2.resize(imgCrop, (imgSize, hCal))
-            imgResizeShape = imgResize.shape
-            hGap = math.ceil((imgSize - hCal) / 2)
-            imgWhite[hGap:hCal + hGap, :] = imgResize
+
+        try:
+            if aspectRatio > 1:
+                k = imgSize / h
+                wCal = math.ceil(k * w)
+                imgResize = cv2.resize(imgCrop, (wCal, imgSize))
+                imgResizeShape = imgResize.shape
+                wGap = math.ceil((imgSize - wCal) / 2)
+                imgWhite[:, wGap:wCal + wGap] = imgResize
+    
+            else:
+                k = imgSize / w
+                hCal = math.ceil(k * h)
+                imgResize = cv2.resize(imgCrop, (imgSize, hCal))
+                imgResizeShape = imgResize.shape
+                hGap = math.ceil((imgSize - hCal) / 2)
+                imgWhite[hGap:hCal + hGap, :] = imgResize
+            
+            # cv2.imshow("Image", img)
+            # imgWhite = cv2.cvtColor(imgWhite, cv2.COLOR_BGR2GRAY)
+            cv2.imshow("ImageWhite", imgWhite)
+            output(imgWhite)
         
-        # cv2.imshow("Image", img)
-        # imgWhite = cv2.cvtColor(imgWhite, cv2.COLOR_BGR2GRAY)
-        cv2.imshow("ImageWhite", imgWhite)
-        output(imgWhite)
+        except Exception as e:
+            # By this way we can know about the type of error occurring
+            print("The error is: ",e)
+    
     cv2.imshow("Image", img)
     key = cv2.waitKey(1)
 
