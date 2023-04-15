@@ -8,7 +8,7 @@ import string
 
 base_folder = "marathi_module/Data"
 
-marathi=['क','ख','ग','घ','च','छ','ज','झ','त्र','ट','ठ','ड','ढ','ण','त','थ','द','ध','न','प','फ','ब','भ','म','य','र','ल','व','श','ष','स','ह','ळ','क्ष','ज्ञ']
+marathi={1:'क',2:'ख',3:'ग',4:'घ',5:'च',6:'छ',7:'ज',8:'झ',9:'त्र',10:'ट',11:'ठ',12:'ड',13:'ढ',14:'ण',15:'त',16:'थ',17:'द',18:'ध',19:'न',20:'प',21:'फ',22:'ब',23:'भ',24:'म',25:'य',26:'र',27:'ल',28:'व',29:'श',30:'ष',31:'स',32:'ह',33:'ळ',34:'क्ष',35:'ज्ञ'}
 
 #Create Data Set Folder
 if not os.path.exists(base_folder):
@@ -17,7 +17,7 @@ if not os.path.exists(f"{base_folder}/train"):
     os.makedirs(f"{base_folder}/train")
 if not os.path.exists(f"{base_folder}/test"):
     os.makedirs(f"{base_folder}/test")
-for i in marathi:
+for i in range(36):
     if not os.path.exists(f"{base_folder}/train/" +str(i)):
         os.makedirs(f"{base_folder}/train/"+str(i))
     if not os.path.exists(f"{base_folder}/test/" + str(i)):
@@ -44,80 +44,80 @@ while True:
 
     # Getting count of existing images
     count = {
-             'क': len(os.listdir(folder+"/क")),
-             'ख': len(os.listdir(folder+"/ख")),
-             'ग': len(os.listdir(folder+"/ग")),
-             'घ': len(os.listdir(folder+"/घ")),
-             'च': len(os.listdir(folder+"/च")),
-             'छ': len(os.listdir(folder+"/छ")),
-             'ज': len(os.listdir(folder+"/ज")),
-             'झ': len(os.listdir(folder+"/झ")),
-             'त्र': len(os.listdir(folder+"/त्र")),
-             'ट': len(os.listdir(folder+"/ट")),
-             'ठ': len(os.listdir(folder+"/ठ")),
-             'ड': len(os.listdir(folder+"/ड")),
-             'ढ': len(os.listdir(folder+"/ढ")),
-             'ण': len(os.listdir(folder+"/ण")),
-             'त': len(os.listdir(folder+"/त")),
-             'थ': len(os.listdir(folder+"/थ")),
-             'द': len(os.listdir(folder+"/द")),
-             'ध': len(os.listdir(folder+"/ध")),
-             'न': len(os.listdir(folder+"/न")),
-             'प': len(os.listdir(folder+"/प")),
-             'फ': len(os.listdir(folder+"/फ")),
-             'ब': len(os.listdir(folder+"/ब")),
-             'भ': len(os.listdir(folder+"/भ")),
-             'म': len(os.listdir(folder+"/म")),
-             'य': len(os.listdir(folder+"/य")),
-             'र': len(os.listdir(folder+"/र")),
-             'ल': len(os.listdir(folder+"/ल")),
-             'व': len(os.listdir(folder+"/व")),
-             'श': len(os.listdir(folder+"/श")),
-             'ष': len(os.listdir(folder+"/ष")),
-             'स': len(os.listdir(folder+"/स")),
-             'ह': len(os.listdir(folder+"/ह")),
-             'ळ': len(os.listdir(folder+"/ळ")),
-             'क्ष': len(os.listdir(folder+"/क्ष")),
-             'ज्ञ': len(os.listdir(folder+"/ज्ञ"))
+             '1': len(os.listdir(folder+"/1")),
+             '2': len(os.listdir(folder+"/2")),
+             '3': len(os.listdir(folder+"/3")),
+             '4': len(os.listdir(folder+"/4")),
+             '5': len(os.listdir(folder+"/5")),
+             '6': len(os.listdir(folder+"/6")),
+             '7': len(os.listdir(folder+"/7")),
+             '8': len(os.listdir(folder+"/8")),
+             '9': len(os.listdir(folder+"/9")),
+             '10': len(os.listdir(folder+"/10")),
+             '11': len(os.listdir(folder+"/11")),
+             '12': len(os.listdir(folder+"/12")),
+             '13': len(os.listdir(folder+"/13")),
+             '14': len(os.listdir(folder+"/14")),
+             '15': len(os.listdir(folder+"/15")),
+             '16': len(os.listdir(folder+"/16")),
+             '17': len(os.listdir(folder+"/17")),
+             '18': len(os.listdir(folder+"/18")),
+             '19': len(os.listdir(folder+"/19")),
+             '20': len(os.listdir(folder+"/20")),
+             '21': len(os.listdir(folder+"/21")),
+             '22': len(os.listdir(folder+"/22")),
+             '23': len(os.listdir(folder+"/23")),
+             '24': len(os.listdir(folder+"/24")),
+             '25': len(os.listdir(folder+"/25")),
+             '26': len(os.listdir(folder+"/26")),
+             '27': len(os.listdir(folder+"/27")),
+             '28': len(os.listdir(folder+"/28")),
+             '29': len(os.listdir(folder+"/29")),
+             '30': len(os.listdir(folder+"/30")),
+             '31': len(os.listdir(folder+"/31")),
+             '32': len(os.listdir(folder+"/32")),
+             '33': len(os.listdir(folder+"/33")),
+             '34': len(os.listdir(folder+"/34")),
+             '35': len(os.listdir(folder+"/35"))
              }
     
     # Printing the count in each set to the screen
 
-    # cv2.putText(img, "क : "+str(count['क']), (10, 17), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "ख : "+str(count['ख']), (10, 30), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "ग : "+str(count['ग']), (10, 43), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "घ : "+str(count['घ']), (10, 56), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "च : "+str(count['च']), (10, 69), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "छ : "+str(count['छ']), (10, 82), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "ज : "+str(count['ज']), (10, 95), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "झ : "+str(count['झ']), (10, 108), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "त्र : "+str(count['त्र']), (10, 121), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "ट : "+str(count['ट']), (10, 134), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "ठ : "+str(count['ठ']), (10, 147), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "ड : "+str(count['ड']), (10, 160), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "ढ : "+str(count['ढ']), (10, 173), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "ण : "+str(count['ण']), (10, 186), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "त : "+str(count['त']), (10, 199), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "थ : "+str(count['थ']), (10, 212), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "द : "+str(count['द']), (10, 225), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "ध : "+str(count['ध']), (10, 238), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "न : "+str(count['न']), (10, 251), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "प : "+str(count['प']), (10, 264), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "फ : "+str(count['फ']), (10, 277), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "ब : "+str(count['ब']), (10, 290), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "भ : "+str(count['भ']), (10, 303), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "म : "+str(count['म']), (10, 316), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "य : "+str(count['य']), (10, 329), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "र : "+str(count['र']), (10, 342), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "ल : "+str(count['ल']), (10, 355), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "व : "+str(count['व']), (10, 368), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "श : "+str(count['श']), (10, 381), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "ष : "+str(count['ष']), (10, 394), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "स : "+str(count['स']), (10, 407), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "ह : "+str(count['ह']), (10, 420), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "ळ : "+str(count['ळ']), (10, 433), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "क्ष : "+str(count['क्ष']), (10, 446), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
-    # cv2.putText(img, "ज्ञ : "+str(count['ज्ञ']), (10, 459), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "1 : "+str(count['1']), (10, 17), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "2 : "+str(count['2']), (10, 30), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "3 : "+str(count['3']), (10, 43), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "4 : "+str(count['4']), (10, 56), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "5 : "+str(count['5']), (10, 69), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "6 : "+str(count['6']), (10, 82), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "7 : "+str(count['7']), (10, 95), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "8 : "+str(count['8']), (10, 108), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "9 : "+str(count['9']), (10, 121), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "10 : "+str(count['10']), (10, 134), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "11 : "+str(count['11']), (10, 147), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "12 : "+str(count['12']), (10, 160), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "13 : "+str(count['13']), (10, 173), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "14 : "+str(count['14']), (10, 186), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "15 : "+str(count['15']), (10, 199), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "16 : "+str(count['16']), (10, 212), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "17 : "+str(count['17']), (10, 225), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "18 : "+str(count['18']), (10, 238), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "19 : "+str(count['19']), (10, 251), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "20 : "+str(count['20']), (10, 264), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "21 : "+str(count['21']), (10, 277), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "22 : "+str(count['22']), (10, 290), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "23 : "+str(count['23']), (10, 303), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "24 : "+str(count['24']), (10, 316), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "25 : "+str(count['25']), (10, 329), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "26 : "+str(count['26']), (10, 342), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "27 : "+str(count['27']), (10, 355), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "28 : "+str(count['28']), (10, 368), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "29 : "+str(count['29']), (10, 381), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "30 : "+str(count['30']), (10, 394), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "31 : "+str(count['31']), (10, 407), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "32 : "+str(count['32']), (10, 420), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "33 : "+str(count['33']), (10, 433), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "34 : "+str(count['34']), (10, 446), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
+    cv2.putText(img, "35 : "+str(count['35']), (10, 459), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,0), 1)
 
     
     total=0
@@ -177,108 +177,108 @@ while True:
 
     #Stores Alphabets in folder
     if key == ord("a"):
-        cv2.imwrite(f'{folder}/क/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/1/Image_{time.time()}.jpg',imgWhite)
         
     if key == ord("b"):
-        cv2.imwrite(f'{folder}/ख/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/2/Image_{time.time()}.jpg',imgWhite)
     
     if key == ord("c"):
-        cv2.imwrite(f'{folder}/ग/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/3/Image_{time.time()}.jpg',imgWhite)
         
     if key == ord("d"):
-        cv2.imwrite(f'{folder}/घ/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/4/Image_{time.time()}.jpg',imgWhite)
         
     if key == ord("e"):
-        cv2.imwrite(f'{folder}/च/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/5/Image_{time.time()}.jpg',imgWhite)
         
     if key == ord("f"):
-        cv2.imwrite(f'{folder}/छ/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/6/Image_{time.time()}.jpg',imgWhite)
        
     if key == ord("g"):
-        cv2.imwrite(f'{folder}/ज/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/7/Image_{time.time()}.jpg',imgWhite)
 
     if key == ord("h"):
-        cv2.imwrite(f'{folder}/झ/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/8/Image_{time.time()}.jpg',imgWhite)
      
     if key == ord("i"):
-        cv2.imwrite(f'{folder}/त्र/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/9/Image_{time.time()}.jpg',imgWhite)
         
     if key == ord("j"):
-        cv2.imwrite(f'{folder}/ट/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/10/Image_{time.time()}.jpg',imgWhite)
        
     if key == ord("k"):
-        cv2.imwrite(f'{folder}/ठ/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/11/Image_{time.time()}.jpg',imgWhite)
         
     if key == ord("l"):
-        cv2.imwrite(f'{folder}/ड/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/12/Image_{time.time()}.jpg',imgWhite)
         
     if key == ord("m"):
-        cv2.imwrite(f'{folder}/ढ/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/13/Image_{time.time()}.jpg',imgWhite)
         
     if key == ord("n"):
-        cv2.imwrite(f'{folder}/ण/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/14/Image_{time.time()}.jpg',imgWhite)
        
     if key == ord("o"):
-        cv2.imwrite(f'{folder}/त/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/15/Image_{time.time()}.jpg',imgWhite)
        
     if key == ord("p"):
-        cv2.imwrite(f'{folder}/थ/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/16/Image_{time.time()}.jpg',imgWhite)
         
     if key == ord("q"):
-        cv2.imwrite(f'{folder}/द/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/17/Image_{time.time()}.jpg',imgWhite)
         
     if key == ord("r"):
-        cv2.imwrite(f'{folder}/ध/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/18/Image_{time.time()}.jpg',imgWhite)
      
     if key == ord("s"):
-        cv2.imwrite(f'{folder}/न/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/19/Image_{time.time()}.jpg',imgWhite)
        
     if key == ord("t"):
-        cv2.imwrite(f'{folder}/प/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/20/Image_{time.time()}.jpg',imgWhite)
         
     if key == ord("u"):
-        cv2.imwrite(f'{folder}/फ/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/21/Image_{time.time()}.jpg',imgWhite)
        
     if key == ord("v"):
-        cv2.imwrite(f'{folder}/ब/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/22/Image_{time.time()}.jpg',imgWhite)
         
     if key == ord("w"):
-        cv2.imwrite(f'{folder}/भ/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/23/Image_{time.time()}.jpg',imgWhite)
      
     if key == ord("x"):
-        cv2.imwrite(f'{folder}/म/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/24/Image_{time.time()}.jpg',imgWhite)
        
     if key == ord("y"):
-        cv2.imwrite(f'{folder}/य/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/25/Image_{time.time()}.jpg',imgWhite)
      
     if key == ord("z"):
-        cv2.imwrite(f'{folder}/र/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/26/Image_{time.time()}.jpg',imgWhite)
      
     if key == ord("1"):
-        cv2.imwrite(f'{folder}/ल/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/27/Image_{time.time()}.jpg',imgWhite)
      
     if key == ord("2"):
-        cv2.imwrite(f'{folder}/व/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/28/Image_{time.time()}.jpg',imgWhite)
       
     if key == ord("3"):
-        cv2.imwrite(f'{folder}/श/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/29/Image_{time.time()}.jpg',imgWhite)
        
     if key == ord("4"):
-        cv2.imwrite(f'{folder}/ष/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/30/Image_{time.time()}.jpg',imgWhite)
         
     if key == ord("5"):
-        cv2.imwrite(f'{folder}/स/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/31/Image_{time.time()}.jpg',imgWhite)
         
     if key == ord("6"):
-        cv2.imwrite(f'{folder}/ह/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/32/Image_{time.time()}.jpg',imgWhite)
         
     if key == ord("7"):
-        cv2.imwrite(f'{folder}/ळ/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/33/Image_{time.time()}.jpg',imgWhite)
       
     if key == ord("8"):
-        cv2.imwrite(f'{folder}/क्ष/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/34/Image_{time.time()}.jpg',imgWhite)
       
     if key == ord("9"):
-        cv2.imwrite(f'{folder}/ज्ञ/Image_{time.time()}.jpg',imgWhite)
+        cv2.imwrite(f'{folder}/35/Image_{time.time()}.jpg',imgWhite)
 
 
