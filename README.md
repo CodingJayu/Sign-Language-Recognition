@@ -31,7 +31,7 @@ To run this project, follow these steps:
 
 1. Clone this repository to your local machine:
 
-git clone https://github.com/CodingJayu/Sign-Language-Recognition.git
+`git clone https://github.com/CodingJayu/Sign-Language-Recognition.git`
 
 
 2. Navigate to the project directory:
@@ -39,7 +39,7 @@ git clone https://github.com/CodingJayu/Sign-Language-Recognition.git
 
 3. Run the main.py file using the following command:
 
-streamlit run main.py
+`streamlit run main.py`
 
 
 4. The Streamlit app should now be running on your local machine. You should see the live camera feed displayed in a video player. Click the "Stop Camera" button to terminate the camera feed.
