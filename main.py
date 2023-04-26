@@ -9,7 +9,14 @@ import streamlit as st
 import cv2
 import numpy as np
 import english_module.app as eng_run
+from mss import mss
 # import marathi_module.app as mar_run
+from screeninfo import get_monitors
+
+for m in get_monitors():
+    width=m.width
+    height=m.height
+
 
 st.title('Sign Language Recognition')
 
@@ -78,6 +85,7 @@ if app_mode =='English Language Letter':
     st.set_option('deprecation.showfileUploaderEncoding', False)
 
     use_webcam = st.sidebar.button('Start Webcam')
+    use_scr = st.sidebar.button('Start Screen Recorder')
   
     st.sidebar.markdown('---')
     st.markdown(
@@ -118,6 +126,64 @@ if app_mode =='English Language Letter':
     st.markdown('## Input Video')
 
     stframe = st.empty()
+
+    bounding_box={'top':0,'left':0,'width':width,'height':height}
+    sct=mss()
+
+    if use_scr:
+        detector = HandDetector(maxHands=1)
+        offset = 20
+        imgSize = 300
+    
+        
+        while True:
+
+            img=np.array(sct.grab(bounding_box))
+            img = cv2.cvtColor(img,cv2.COLOR_BGRA2BGR)
+            hands, img = detector.findHands(img)
+            frame = cv2.resize(img,(0,0),fx = 0.8 , fy = 0.8)
+            frame = image_resize(image = frame, width = width)
+            stframe.image(frame,channels = 'BGR',use_column_width=True)
+
+            if hands:
+                hand = hands[0]
+                x, y, w, h = hand['bbox']
+        
+                imgWhite = np.ones((imgSize, imgSize, 3), np.uint8) * 255
+                imgCrop = img[y - offset:y + h + offset, x - offset:x + w + offset]
+        
+                imgCropShape = imgCrop.shape
+        
+                aspectRatio = h / w
+
+                try:
+                    if aspectRatio > 1:
+                        k = imgSize / h
+                        wCal = math.ceil(k * w)
+                        imgResize = cv2.resize(imgCrop, (wCal, imgSize))
+                        imgResizeShape = imgResize.shape
+                        wGap = math.ceil((imgSize - wCal) / 2)
+                        imgWhite[:, wGap:wCal + wGap] = imgResize
+            
+                    else:
+                        k = imgSize / w
+                        hCal = math.ceil(k * h)
+                        imgResize = cv2.resize(imgCrop, (imgSize, hCal))
+                        imgResizeShape = imgResize.shape
+                        hGap = math.ceil((imgSize - hCal) / 2)
+                        imgWhite[hGap:hCal + hGap, :] = imgResize
+                    
+                    # cv2.imshow("Image", img)
+                    # imgWhite = cv2.cvtColor(imgWhite, cv2.COLOR_BGR2GRAY)
+                    # cv2.imshow("ImageWhite", imgWhite)
+                    result,acc=eng_run.output(imgWhite)
+                    kpi1_text.write(f"<h6 style='text-align: center; color: green;'>{result}</h6>", unsafe_allow_html=True)
+                    kpi2_text.write(f"<h6 style='text-align: center; color: green;'>OK</h6>", unsafe_allow_html=True)
+                
+                
+                except Exception as e:
+                    # By this way we can know about the type of error occurring
+                    kpi2_text.write(f"<h6 style='text-align: center; color: red;'>Hand Out of Frame</h6>", unsafe_allow_html=True)
     
     if use_webcam:
         cap = cv2.VideoCapture(0)
@@ -179,109 +245,169 @@ if app_mode =='English Language Letter':
                 
             
 elif app_mode =='Marathi Language Letter':
-
-    # st.set_option('deprecation.showfileUploaderEncoding', False)
-
-    # use_webcam = st.sidebar.button('Start Webcam')
-  
-    # st.sidebar.markdown('---')
-    # st.markdown(
-    # """
-    # <style>
-    # [data-testid="stSidebar"][aria-expanded="true"] > div:first-child {
-    #     width: 400px;
-    # }
-    # [data-testid="stSidebar"][aria-expanded="false"] > div:first-child {
-    #     width: 400px;
-    #     margin-left: -400px;
-    # }
-    # </style>
-    # """,
-    # unsafe_allow_html=True,
-    #     )
-
-    # kpi1, kpi2, kpi3= st.columns(3)
-
-    # with kpi1:
-    #     st.markdown("**Output English Letter**")
-    #     kpi1_text = st.markdown("None")
-        
-    # with kpi2:
-    #     st.markdown("**System Status**")
-    #     kpi2_text = st.markdown("None")
     
-    # with kpi3:
-    #     if st.button("Stop Capturing"):
-    #         st.stop()
+    st.set_option('deprecation.showfileUploaderEncoding', False)
+
+    use_webcam = st.sidebar.button('Start Webcam')
+    use_scr = st.sidebar.button('Start Screen Recorder')
+  
+    st.sidebar.markdown('---')
+    st.markdown(
+    """
+    <style>
+    [data-testid="stSidebar"][aria-expanded="true"] > div:first-child {
+        width: 400px;
+    }
+    [data-testid="stSidebar"][aria-expanded="false"] > div:first-child {
+        width: 400px;
+        margin-left: -400px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+        )
+
+    kpi1, kpi2, kpi3= st.columns(3)
+
+    with kpi1:
+        st.markdown("**Output English Letter**")
+        kpi1_text = st.markdown("None")
+        
+    with kpi2:
+        st.markdown("**System Status**")
+        kpi2_text = st.markdown("None")
+    
+    with kpi3:
+        if st.button("Stop Capturing"):
+            st.stop()
             
                 
     
 
-    # st.markdown("<hr/>", unsafe_allow_html=True)
+    st.markdown("<hr/>", unsafe_allow_html=True)
 
  
-    # st.markdown('## Input Video')
+    st.markdown('## Input Video')
 
-    # stframe = st.empty()
+    stframe = st.empty()
+
+    bounding_box={'top':0,'left':0,'width':width,'height':height}
+    sct=mss()
+
+    if use_scr:
+        detector = HandDetector(maxHands=1)
+        offset = 20
+        imgSize = 300
     
-    # if use_webcam:
-    #     cap = cv2.VideoCapture(0)
-    #     detector = HandDetector(maxHands=1)
-    #     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    #     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    #     fps_input = int(cap.get(cv2.CAP_PROP_FPS))
-    #     offset = 20
-    #     imgSize = 300
         
-    #     while True:
-    #         flag=0
-    #         success, img = cap.read()
-    #         hands, img = detector.findHands(img)
-    #         frame = cv2.resize(img,(0,0),fx = 0.8 , fy = 0.8)
-    #         frame = image_resize(image = frame, width = width)
-    #         stframe.image(frame,channels = 'BGR',use_column_width=True)
+        while True:
 
-    #         if hands:
-    #             hand = hands[0]
-    #             x, y, w, h = hand['bbox']
-        
-    #             imgWhite = np.ones((imgSize, imgSize, 3), np.uint8) * 255
-    #             imgCrop = img[y - offset:y + h + offset, x - offset:x + w + offset]
-        
-    #             imgCropShape = imgCrop.shape
-        
-    #             aspectRatio = h / w
+            img=np.array(sct.grab(bounding_box))
+            img = cv2.cvtColor(img,cv2.COLOR_BGRA2BGR)
+            hands, img = detector.findHands(img)
+            frame = cv2.resize(img,(0,0),fx = 0.8 , fy = 0.8)
+            frame = image_resize(image = frame, width = width)
+            stframe.image(frame,channels = 'BGR',use_column_width=True)
 
-    #             try:
-    #                 if aspectRatio > 1:
-    #                     k = imgSize / h
-    #                     wCal = math.ceil(k * w)
-    #                     imgResize = cv2.resize(imgCrop, (wCal, imgSize))
-    #                     imgResizeShape = imgResize.shape
-    #                     wGap = math.ceil((imgSize - wCal) / 2)
-    #                     imgWhite[:, wGap:wCal + wGap] = imgResize
+            if hands:
+                hand = hands[0]
+                x, y, w, h = hand['bbox']
+        
+                imgWhite = np.ones((imgSize, imgSize, 3), np.uint8) * 255
+                imgCrop = img[y - offset:y + h + offset, x - offset:x + w + offset]
+        
+                imgCropShape = imgCrop.shape
+        
+                aspectRatio = h / w
+
+                try:
+                    if aspectRatio > 1:
+                        k = imgSize / h
+                        wCal = math.ceil(k * w)
+                        imgResize = cv2.resize(imgCrop, (wCal, imgSize))
+                        imgResizeShape = imgResize.shape
+                        wGap = math.ceil((imgSize - wCal) / 2)
+                        imgWhite[:, wGap:wCal + wGap] = imgResize
             
-    #                 else:
-    #                     k = imgSize / w
-    #                     hCal = math.ceil(k * h)
-    #                     imgResize = cv2.resize(imgCrop, (imgSize, hCal))
-    #                     imgResizeShape = imgResize.shape
-    #                     hGap = math.ceil((imgSize - hCal) / 2)
-    #                     imgWhite[hGap:hCal + hGap, :] = imgResize
+                    else:
+                        k = imgSize / w
+                        hCal = math.ceil(k * h)
+                        imgResize = cv2.resize(imgCrop, (imgSize, hCal))
+                        imgResizeShape = imgResize.shape
+                        hGap = math.ceil((imgSize - hCal) / 2)
+                        imgWhite[hGap:hCal + hGap, :] = imgResize
                     
-    #                 # cv2.imshow("Image", img)
-    #                 # imgWhite = cv2.cvtColor(imgWhite, cv2.COLOR_BGR2GRAY)
-    #                 # cv2.imshow("ImageWhite", imgWhite)
-    #                 result,acc=mar_run.output(imgWhite)
-    #                 kpi1_text.write(f"<h6 style='text-align: center; color: green;'>{result}</h6>", unsafe_allow_html=True)
-    #                 kpi2_text.write(f"<h6 style='text-align: center; color: green;'>OK</h6>", unsafe_allow_html=True)
+                    # cv2.imshow("Image", img)
+                    # imgWhite = cv2.cvtColor(imgWhite, cv2.COLOR_BGR2GRAY)
+                    # cv2.imshow("ImageWhite", imgWhite)
+                    result,acc=mar_run.output(imgWhite)
+                    kpi1_text.write(f"<h6 style='text-align: center; color: green;'>{result}</h6>", unsafe_allow_html=True)
+                    kpi2_text.write(f"<h6 style='text-align: center; color: green;'>OK</h6>", unsafe_allow_html=True)
                 
                 
-    #             except Exception as e:
-    #                 # By this way we can know about the type of error occurring
-    #                 kpi2_text.write(f"<h6 style='text-align: center; color: red;'>Hand Out of Frame</h6>", unsafe_allow_html=True)
-    pass
+                except Exception as e:
+                    # By this way we can know about the type of error occurring
+                    kpi2_text.write(f"<h6 style='text-align: center; color: red;'>Hand Out of Frame</h6>", unsafe_allow_html=True)
+    
+    if use_webcam:
+        cap = cv2.VideoCapture(0)
+        detector = HandDetector(maxHands=1)
+        width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+        height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        fps_input = int(cap.get(cv2.CAP_PROP_FPS))
+        offset = 20
+        imgSize = 300
+        
+        while True:
+            flag=0
+            success, img = cap.read()
+            hands, img = detector.findHands(img)
+            frame = cv2.resize(img,(0,0),fx = 0.8 , fy = 0.8)
+            frame = image_resize(image = frame, width = width)
+            stframe.image(frame,channels = 'BGR',use_column_width=True)
 
+            if hands:
+                hand = hands[0]
+                x, y, w, h = hand['bbox']
+        
+                imgWhite = np.ones((imgSize, imgSize, 3), np.uint8) * 255
+                imgCrop = img[y - offset:y + h + offset, x - offset:x + w + offset]
+        
+                imgCropShape = imgCrop.shape
+        
+                aspectRatio = h / w
+
+                try:
+                    if aspectRatio > 1:
+                        k = imgSize / h
+                        wCal = math.ceil(k * w)
+                        imgResize = cv2.resize(imgCrop, (wCal, imgSize))
+                        imgResizeShape = imgResize.shape
+                        wGap = math.ceil((imgSize - wCal) / 2)
+                        imgWhite[:, wGap:wCal + wGap] = imgResize
+            
+                    else:
+                        k = imgSize / w
+                        hCal = math.ceil(k * h)
+                        imgResize = cv2.resize(imgCrop, (imgSize, hCal))
+                        imgResizeShape = imgResize.shape
+                        hGap = math.ceil((imgSize - hCal) / 2)
+                        imgWhite[hGap:hCal + hGap, :] = imgResize
+                    
+                    # cv2.imshow("Image", img)
+                    # imgWhite = cv2.cvtColor(imgWhite, cv2.COLOR_BGR2GRAY)
+                    # cv2.imshow("ImageWhite", imgWhite)
+                    result,acc=mar_run.output(imgWhite)
+                    kpi1_text.write(f"<h6 style='text-align: center; color: green;'>{result}</h6>", unsafe_allow_html=True)
+                    kpi2_text.write(f"<h6 style='text-align: center; color: green;'>OK</h6>", unsafe_allow_html=True)
+                
+                
+                except Exception as e:
+                    # By this way we can know about the type of error occurring
+                    kpi2_text.write(f"<h6 style='text-align: center; color: red;'>Error:{e}</h6>", unsafe_allow_html=True)
+           
+  
+ 
 elif app_mode =='Communication':
     #Code Writting Remaining
     pass
