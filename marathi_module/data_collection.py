@@ -280,4 +280,4 @@ while True:
     if key == ord("9"):
         cv2.imwrite(f'{folder}/35/Image_{time.time()}.jpg',imgWhite)
 
-
+#marathi data collection model ends 
