@@ -6,7 +6,6 @@ import math
 import os
 from cvzone.HandTrackingModule import HandDetector
 import streamlit as st
-import cv2
 import numpy as np
 import english_module.app as eng_run
 from mss import mss
