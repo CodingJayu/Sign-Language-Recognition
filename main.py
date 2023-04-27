@@ -468,9 +468,9 @@ elif app_mode =='Communication':
 
     if use_webcam:
 
-        actions = np.array(['Hello', 'Thanks', 'I love you','sorry','Good Morning','Good Night','Good Afternoon','Happy','Man','Women','Have You Eaten ?','Bye','I','Your','You','Good','Very Good','Bad','All the Best','Yes','No'])
+        actions = np.array(['Hello', 'Thanks', 'I love you','sorry','Good Morning','Good Night','Good Afternoon','Happy','Man','Women','Have You Eaten','Bye','I','Your','You','Good','Very Good','Bad','All the Best','Yes','No'])
 
-        colors = [(245,117,16), (117,245,16), (16,117,245)]
+        colors = [(245,117,16), (117,245,16), (16,117,245),(245,117,16), (117,245,16), (16,117,245),(245,117,16), (117,245,16), (16,117,245),(245,117,16), (117,245,16), (16,117,245),(245,117,16), (117,245,16), (16,117,245),(245,117,16), (117,245,16), (16,117,245),(245,117,16), (117,245,16), (16,117,245)]
 
         def prob_viz(res, actions, input_frame, colors):
             output_frame = input_frame.copy()
