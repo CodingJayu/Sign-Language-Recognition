@@ -16,7 +16,7 @@ if not os.path.exists(f"{base_folder}/train"):
     os.makedirs(f"{base_folder}/train")
 if not os.path.exists(f"{base_folder}/test"):
     os.makedirs(f"{base_folder}/test")
-for i in range(36):
+for i in range(1,36):
     if not os.path.exists(f"{base_folder}/train/" +str(i)):
         os.makedirs(f"{base_folder}/train/"+str(i))
     if not os.path.exists(f"{base_folder}/test/" + str(i)):
