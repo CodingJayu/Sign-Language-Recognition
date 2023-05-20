@@ -9,7 +9,7 @@ import streamlit as st
 import numpy as np
 import english_module.app as eng_run
 from mss import mss
-# import marathi_module.app as mar_run
+import marathi_module.app as mar_run
 from screeninfo import get_monitors
 import mediapipe as mp
 from tensorflow import keras
@@ -19,7 +19,7 @@ mp_holistic = mp.solutions.holistic # Holistic model
 
 
 
-
+mode=0
 
 st.title('Sign Language Recognition')
 
@@ -181,7 +181,7 @@ if app_mode =='English Language Letter':
                         imgWhite[hGap:hCal + hGap, :] = imgResize
                     
                     # cv2.imshow("Image", img)
-                    # imgWhite = cv2.cvtColor(imgWhite, cv2.COLOR_BGR2GRAY)
+                    imgWhite = cv2.cvtColor(imgWhite, cv2.COLOR_BGR2GRAY)
                     # cv2.imshow("ImageWhite", imgWhite)
                     result,acc=eng_run.output(imgWhite)
                     kpi1_text.write(f"<h6 style='text-align: center; color: green;'>{result}</h6>", unsafe_allow_html=True)
@@ -193,7 +193,7 @@ if app_mode =='English Language Letter':
                     kpi2_text.write(f"<h6 style='text-align: center; color: red;'>Hand Out of Frame</h6>", unsafe_allow_html=True)
     
     if use_webcam:
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(mode)
         detector = HandDetector(maxHands=1)
         width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -238,7 +238,7 @@ if app_mode =='English Language Letter':
                         imgWhite[hGap:hCal + hGap, :] = imgResize
                     
                     # cv2.imshow("Image", img)
-                    # imgWhite = cv2.cvtColor(imgWhite, cv2.COLOR_BGR2GRAY)
+                    imgWhite = cv2.cvtColor(imgWhite, cv2.COLOR_BGR2GRAY)
                     # cv2.imshow("ImageWhite", imgWhite)
                     result,acc=eng_run.output(imgWhite)
                     kpi1_text.write(f"<h6 style='text-align: center; color: green;'>{result}</h6>", unsafe_allow_html=True)
@@ -277,7 +277,7 @@ elif app_mode =='Marathi Language Letter':
     kpi1, kpi2, kpi3= st.columns(3)
 
     with kpi1:
-        st.markdown("**Output English Letter**")
+        st.markdown("**Output Marathi Letter**")
         kpi1_text = st.markdown("None")
         
     with kpi2:
@@ -350,7 +350,7 @@ elif app_mode =='Marathi Language Letter':
                         imgWhite[hGap:hCal + hGap, :] = imgResize
                     
                     # cv2.imshow("Image", img)
-                    # imgWhite = cv2.cvtColor(imgWhite, cv2.COLOR_BGR2GRAY)
+                    imgWhite = cv2.cvtColor(imgWhite, cv2.COLOR_BGR2GRAY)
                     # cv2.imshow("ImageWhite", imgWhite)
                     result,acc=mar_run.output(imgWhite)
                     kpi1_text.write(f"<h6 style='text-align: center; color: green;'>{result}</h6>", unsafe_allow_html=True)
@@ -362,7 +362,7 @@ elif app_mode =='Marathi Language Letter':
                     kpi2_text.write(f"<h6 style='text-align: center; color: red;'>Hand Out of Frame</h6>", unsafe_allow_html=True)
     
     if use_webcam:
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(mode)
         detector = HandDetector(maxHands=1)
         width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -407,7 +407,7 @@ elif app_mode =='Marathi Language Letter':
                         imgWhite[hGap:hCal + hGap, :] = imgResize
                     
                     # cv2.imshow("Image", img)
-                    # imgWhite = cv2.cvtColor(imgWhite, cv2.COLOR_BGR2GRAY)
+                    imgWhite = cv2.cvtColor(imgWhite, cv2.COLOR_BGR2GRAY)
                     # cv2.imshow("ImageWhite", imgWhite)
                     result,acc=mar_run.output(imgWhite)
                     kpi1_text.write(f"<h6 style='text-align: center; color: green;'>{result}</h6>", unsafe_allow_html=True)
@@ -468,9 +468,9 @@ elif app_mode =='Communication':
 
     if use_webcam:
 
-        actions = np.array(['Hello', 'Thanks', 'I love you','sorry','Good Morning','Good Night','Good Afternoon','Happy','Man','Women','Have You Eaten','Bye','I','Your','You','Good','Very Good','Bad','All the Best','Yes','No'])
+        actions = np.array(['Hello', 'Thanks', 'I love you'])
 
-        colors = [(245,117,16), (117,245,16), (16,117,245),(245,117,16), (117,245,16), (16,117,245),(245,117,16), (117,245,16), (16,117,245),(245,117,16), (117,245,16), (16,117,245),(245,117,16), (117,245,16), (16,117,245),(245,117,16), (117,245,16), (16,117,245),(245,117,16), (117,245,16), (16,117,245)]
+        colors = [(245,117,16), (117,245,16), (16,117,245)]
 
         def prob_viz(res, actions, input_frame, colors):
             output_frame = input_frame.copy()
@@ -521,13 +521,13 @@ elif app_mode =='Communication':
         # Set mediapipe model 
                 
         sequence = []
-        sentence = []
+        sentence = [" "]
         predictions = []
         threshold = 0.5
 
-        model = keras.models.load_model('communication_module/Model/Communication.h5',compile=False)
+        model = keras.models.load_model('communication_module/Model/action.h5',compile=False)
 
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(mode)
         width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 
         # Set mediapipe model 
@@ -576,7 +576,7 @@ elif app_mode =='Communication':
                 frame = image_resize(image = frame, width = width)
                 stframe.image(frame,channels = 'BGR',use_column_width=True)
 
-                kpi1_text.write(f"<h6 style='text-align: center; color: green;'>{' '.join(sentence)}</h6>", unsafe_allow_html=True)
+                kpi1_text.write(f"<h6 style='text-align: center; color: green;'>{sentence[-1]}</h6>", unsafe_allow_html=True)
                 kpi2_text.write(f"<h6 style='text-align: center; color: green;'>OK</h6>", unsafe_allow_html=True)
 
                 # Break gracefully

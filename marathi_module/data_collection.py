@@ -16,7 +16,7 @@ if not os.path.exists(f"{base_folder}/train"):
     os.makedirs(f"{base_folder}/train")
 if not os.path.exists(f"{base_folder}/test"):
     os.makedirs(f"{base_folder}/test")
-for i in range(36):
+for i in range(1,36):
     if not os.path.exists(f"{base_folder}/train/" +str(i)):
         os.makedirs(f"{base_folder}/train/"+str(i))
     if not os.path.exists(f"{base_folder}/test/" + str(i)):
@@ -155,8 +155,8 @@ while True:
                 imgWhite[hGap:hCal + hGap, :] = imgResize
 
             # Color to Grey Image
-            # imgCrop = cv2.cvtColor(imgCrop, cv2.COLOR_BGR2GRAY)
-            # imgWhite = cv2.cvtColor(imgWhite, cv2.COLOR_BGR2GRAY)
+            imgCrop = cv2.cvtColor(imgCrop, cv2.COLOR_BGR2GRAY)
+            imgWhite = cv2.cvtColor(imgWhite, cv2.COLOR_BGR2GRAY)
     
             cv2.imshow("ImageCrop", imgCrop)
             cv2.moveWindow("ImageCrop",700,0) # WINDOW POSITION
@@ -280,4 +280,3 @@ while True:
     if key == ord("9"):
         cv2.imwrite(f'{folder}/35/Image_{time.time()}.jpg',imgWhite)
 
-#marathi data collection model ends 
