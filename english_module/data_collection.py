@@ -160,8 +160,8 @@ while True:
                 imgWhite[hGap:hCal + hGap, :] = imgResize
         
             # Color to Grey Image
-            # imgCrop = cv2.cvtColor(imgCrop, cv2.COLOR_BGR2GRAY)
-            # imgWhite = cv2.cvtColor(imgWhite, cv2.COLOR_BGR2GRAY)
+            imgCrop = cv2.cvtColor(imgCrop, cv2.COLOR_BGR2GRAY)
+            imgWhite = cv2.cvtColor(imgWhite, cv2.COLOR_BGR2GRAY)
     
             cv2.imshow("ImageCrop", imgCrop)
             cv2.moveWindow("ImageCrop",700,0) # WINDOW POSITION
